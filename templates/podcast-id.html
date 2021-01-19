@@ -1,0 +1,171 @@
+<!doctype html>
+<head>
+    <script type="text/javascript">
+
+        function secondToString(s) {
+            s = s;
+            var secs = s % 60;
+            s = (s - secs) / 60;
+            var mins = s % 60;
+            var hrs = (s - mins) / 60;
+            if (hrs > 0) {
+                document.write(hrs + ':' + mins + ':' + secs);
+            } else {
+                document.write(mins + ':' + secs);
+            }
+        }
+
+        function millisecondToString(millisecond) {
+            var date = new Date(parseInt(millisecond));
+            var options = {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            };
+            document.write(date.toLocaleDateString("en-US", options));
+        }
+
+        function episodeReaded(id) {
+            var formData = new FormData();
+            formData.append("ids", id);
+            request = new Request('/episode/readed', {method: 'POST',body: formData});
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            });
+        }
+
+        function episodeNotReaded(id) {
+            var formData = new FormData();
+            formData.append("ids", id);
+            request = new Request('/episode/not_readed', {method: 'POST',body: formData});
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            });
+        }
+
+        function episodeNotSyncWatch(id) {
+            var formData = new FormData();
+            formData.append("ids", id);
+            request = new Request('/episode/not_sync_watch', {method: 'POST',body: formData});
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            });
+        }
+
+        function episodeSyncWatch(id) {
+            var formData = new FormData();
+            formData.append("ids", id);
+            request = new Request('/episode/sync_watch', {method: 'POST',body: formData});
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+
+
+    <title>MyPodcasts</title>
+    <link rel="icon" href="/static/favicon.ico"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .header {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .title {
+            width: 90%;
+            float: left;
+        }
+        .action {
+            width: 10%;
+            margin-top: 22px;
+            float: left;
+        }
+
+        .main {
+            width: 100%;
+            grid-area: main;
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns: 1fr;
+        }
+
+        .box {
+            padding: 1em;
+            border: solid;
+        }
+
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="action">
+            <a href="/"><img src="/static/previous.svg" style="width:32px;height:32px;"/></a>
+        </div>
+        <h1 class="title">
+            {% if podcast['image'] != None %}
+                <img src="{{ podcast['image'] }}" style="width:100px;height:100px;"/>
+            {% endif %}    
+            {{ podcast['title'] }}
+        </h1>
+    </div>
+    <main class="main">
+        {% for episode in podcast['episodes'] %}
+            <article class="box">
+                <p>
+                    {{ episode['title'] }}</p>
+                <p>
+                    Position:
+                    {{ episode['position'] }}</p>
+                <p>
+                    <script type="text/javascript">
+                        secondToString("{{ episode['duration'] }}");
+                    </script>
+                    {% if episode['pub_date_ms'] != "0" %}
+                        -
+                        <script type="text/javascript">
+                            millisecondToString("{{ episode['pub_date_ms'] }}");
+                        </script>
+                    {% endif %}
+                </p>
+                <p>
+                    <audio controls preload="none" onended="episodeReaded(id)" id="{{ episode['id'] }}">
+                        <source src="{{ episode['audio_url'] }}" type="audio/mp3"/>
+                        Your browser dose not Support the audio Tag
+                    </audio>
+                </p>
+                {% if episode['readed'] == 1 %}
+                    <form onsubmit="episodeNotReaded(id); return false" id="{{ episode['id'] }}">
+                        <input type="submit" value="Mark unread"/>
+                    </form>
+                {% else %}
+                    <form onsubmit="episodeReaded(id); return false" id="{{ episode['id'] }}">
+                        <button>Mark read</button>
+                    </form>
+                {% endif %}
+                {% if episode['sync_watch'] == 1 %}
+                    <form onsubmit="episodeNotSyncWatch(id); return false" id="{{ episode['id'] }}">
+                        <button>Don't sync to watch</button>
+                    </form>
+                {% else %}
+                    <form onsubmit="episodeSyncWatch(id); return false" id="{{ episode['id'] }}">
+                        <button>Sync to watch</button>
+                    </form>
+                {% endif %}
+            </article>
+        {% endfor %}
+    </main>
+</body>

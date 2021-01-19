@@ -1,0 +1,27 @@
+{
+    "name": "Podcast Sync for Garmin Server",
+    "description": "Server component for Podcast Connect IQ application.",
+    "repository": "https://gitlab.com/ravenfeld/server-podcastsyncgarmin",
+    "logo": "https://www8.garmin.com/HiRes/logos/GarminLogo.jpg",
+    "keywords": ["garmin", "podcast", "connectiq"],
+    "addons": [
+        {
+          "plan": "heroku-postgresql"
+        }
+      ],
+      "success_url": "/",
+      "env": {
+        "NUMBER_MAX_USER": {
+          "description": "Maximum number of users using the application ?",
+          "value": "1"
+        },
+        "PODCASTING_INDEX_KEY": {
+          "description": "API KEY for podcast search. https://api.podcastindex.org/",
+          "required":"false"
+        },
+        "PODCASTING_INDEX_SECRET": {
+            "description": "API SECRET for podcast search. https://api.podcastindex.org/",
+            "required":"false"
+          }
+      }
+}

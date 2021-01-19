@@ -1,0 +1,10 @@
+Flask_Threads==0.0.1a0
+requests==2.22.0
+Flask_Caching==1.8.0
+Flask==1.1.1
+xmltodict==0.12.0
+python-dateutil==2.8.1
+psycopg2-binary==2.8.6
+flask-accept==0.0.6
+APScheduler==3.0.0
+gunicorn

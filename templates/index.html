@@ -1,0 +1,79 @@
+<!doctype html>
+<head>
+    <script type="text/javascript">
+        function podcastRemove(id) {
+            request = new Request('/podcast/' + id + '/remove', {method: 'POST'});
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            });
+        }
+        function refresh() {
+            request = new Request('/check_new_episodes', {method: 'POST'});
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    window.location.reload();
+                }
+            });
+        }
+    </script>
+    <title>MyPodcasts</title>
+    <link rel="icon" href="/static/favicon.ico"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .header {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .main {
+            width: 100%;
+            grid-area: main;
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+        }
+        .title {
+            width: 80%;
+            float: left;
+        }
+        .action {
+            width: 10%;
+            margin-top: 22px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="title">Podcast List</h1>
+        <div class="action">
+            <a href="/podcast/add"><img src="/static/add.svg" style="width:32px;height:32px;"/></a>
+        </div>
+        <div class="action">
+            <form onsubmit="refresh(); return false">
+                <input type="image" src="/static/refresh.svg" name="refresh" style="width:32px;height:32px;" type="submit"/>
+            </form>
+        </div>
+    </div>
+    <main class="main">
+        {% for podcast in podcasts %}
+            <article class="box">
+                <form onsubmit="podcastRemove(id); return false" id="{{ podcast['id'] }}">
+                    <button>Remove Podcast</button>
+                </form>
+                <a href="/podcast/{{ podcast['id'] }}">
+                    {% if podcast['image'] != None %}
+                        <img src="{{ podcast['image_url'] }}" style="width:100px;height:100px;">
+                    {% else %}
+                        {{ podcast['title'] }}
+                    {% endif %}
+                </a>    
+                </article>
+            {% endfor %}
+        </main>
+    </body>
+</html>

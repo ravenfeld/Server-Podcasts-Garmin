@@ -1,0 +1,59 @@
+<!doctype html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var form = document.forms.namedItem("form_login");
+            form.addEventListener('submit', function (ev) {
+                oData = new FormData(form);
+                var headers = new Headers();
+                headers.append('Accept', 'application/json');
+                request = new Request('/create_user', {
+                    method: 'POST',
+                    headers: headers,
+                    body: oData
+                });
+                $(".error").hide()
+                fetch(request).then(response => {
+                    if (response.status === 200) {
+                        window.location.replace("/login");
+                    } else {
+                        response.json().then(function (data) {
+                            $(".error").text(data["error"]);
+                            $(".error").show();
+                        });
+                    }
+                });
+                ev.preventDefault();
+            }, false);
+        }
+    </script>
+    <title>MyPodcasts</title>
+    <link rel="icon" href="/static/favicon.ico"/>
+</head>
+<body>
+    <h1>
+        Create user
+    </h1>
+    <p>
+        <label class="error" style="display: none">
+        </label>
+        <form enctype="multipart/form-data" method="post" id="form_login">
+            <div class="login">
+                <label for="login">
+                    <b>Login</b>
+                </label>
+                <input type="text" placeholder="Enter Username" name="login" required>
+            </div>
+            <div class="psw">
+                <label for="psw">
+                    <b>Password</b>
+                </label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+            </div>
+            <div>
+                <button type="submit">Add</button>
+            </div>
+        </form>
+    </p>
+</body>

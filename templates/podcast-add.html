@@ -1,0 +1,68 @@
+<!doctype html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        function episodeAdd(rss = "") {
+            var formData = new FormData();
+            formData.append("rss", rss.value);
+            request = new Request('/podcast/add', {
+                method: 'POST',
+                body: formData
+            });
+            $(".editRss").hide()
+            $(".progress").show()
+
+            fetch(request).then(response => {
+                if (response.status === 200) {
+                    $(".editRss").show()
+                    $('input[name=rss]').val('');
+                    $(".progress").hide()
+                }
+            });
+        }
+    </script>
+
+    <title>MyPodcasts</title>
+    <link rel="icon" href="/static/favicon.ico"/>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .header {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .title {
+            width: 90%;
+            float: left;
+        }
+        .action {
+            width: 10%;
+            margin-top: 22px;
+            float: left;
+        }
+
+        .main {
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="action">
+            <a href="/"><img src="/static/previous.svg" style="width:32px;height:32px;"/></a>
+        </div>
+        <h1 class="title">Add Podcast by RSS URL</h1>
+    </div>
+    <main class="main">
+        <div class="progress" style="display: none">
+            <progress id="addRss">
+        </div>
+        <form class="editRss" onsubmit="episodeAdd(rss=rss); return false">
+            <input name="rss" id="rss" value="" required/>
+            <button>Add</button>
+        </form>
+    </main>
+</body></html>
