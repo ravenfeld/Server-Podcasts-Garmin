@@ -11,12 +11,11 @@ This allows you to limit the creation of accounts and suddenly the number of use
 
 By default on free version Heroku you have access to 10,000 rows
 
-
-Set the NUMBER_MAX_USER
+Set ENV vars the NUMBER_MAX_USER
 
 ### To use search (optional) 
 1. Get a [Podcast Index API token](https://api.podcastindex.org/)
-2. Set the API key and secret
+2. Set ENV vars PODCASTING_INDEX_KEY and PODCASTING_INDEX_SECRET
 
 ## 2. Deployment on Heroku
 1. Create an account or log in [Heroku](https://id.heroku.com/login)
