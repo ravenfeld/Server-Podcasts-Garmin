@@ -5,7 +5,18 @@ The garmin watch as well as the Android application connects to the server to ha
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 # Manual installation
-## 1. Configuration
+## 1. Create an account or log in [Heroku](https://id.heroku.com/login)
+## 2. Create a new app
+## 3. Add add-ons [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql)
+
+The free version allows you to have 10,000 rows which is enough from my point of view for the majority of users.
+
+## 4. Deploy the code to Heroku
+
+Perhaps the easiest is to use connect GitHub
+
+## 5. Configuration
+   
 You can define the numbers of users that your application can receive.
 This allows you to limit the creation of accounts and suddenly the number of use of your database. 
 
@@ -17,20 +28,9 @@ Set ENV vars the NUMBER_MAX_USER
 1. Get a [Podcast Index API token](https://api.podcastindex.org/)
 2. Set ENV vars PODCASTING_INDEX_KEY and PODCASTING_INDEX_SECRET
 
-## 2. Deployment on Heroku
-1. Create an account or log in [Heroku](https://id.heroku.com/login)
-2. Create a new app
-3. Add add-ons [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql)
+## 6. Your application is now operational
 
-The free version allows you to have 10,000 rows which is enough from my point of view for the majority of users.
-
-4. Deploy the code to Heroku
-
-Perhaps the easiest is to use connect GitHub
-
-5. Your application is now operational
-
-### Optional
+# Optional
 There is a cron to search for new episodes automatically.
 
 The final step is to scale up the clock process. This is a singleton process, meaning you’ll never need to scale up more than 1 of these processes. If you run two, the work will be duplicated. [Visit the documentation](https://devcenter.heroku.com/articles/clock-processes-python)
@@ -44,7 +44,7 @@ Open the following url:  https://APP_NAME.herokuapp.com/create_user
 
 Enter your login and password. 
 
-**Please note I did not use a password recovery tool, if you forget it you will have to re-create an account.**
+**Please note I did not use a password recovery tool, if you forget it you will have to re-create an account. For reset delete user with request DELETE FROM account;**
 
 # Using App
 
