@@ -470,10 +470,10 @@ def parse_rss(dataBase, podcast_id, rss_url):
                             list_rss_guid = list_rss_guid+',\''+rss_guid+'\''
                     position -= 1
             if(list_rss_guid is not None):
-                cursor.execute("""DELETE 
-                                FROM episode WHERE ( 
-                                rss_guid NOT IN (""" + list_rss_guid + """) 
-                                OR rss_guid IS NULL ) AND podcast_id = %s""", (podcast_id,))
+                cursor.execute("""DELETE FROM episode 
+                                WHERE ( rss_guid NOT IN ("""+list_rss_guid+""") 
+                                OR rss_guid IS NULL ) 
+                                AND podcast_id = """+str(podcast_id))
             dataBase.commit()
         except (xmltodict.ParsingInterrupted, xml.parsers.expat.ExpatError):
             print("parsing error "+rss_url)
