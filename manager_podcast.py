@@ -32,7 +32,7 @@ CHECK_TIME = 86400  # 24 hours
 
 def connect_database():
     DATABASE_URL = os.environ['DATABASE_URL']
-    return psycopg2.connect(DATABASE_URL, sslmode='disable')
+    return psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 def create_database():
