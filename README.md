@@ -54,7 +54,7 @@ I'm not a web application developer so it's very simple. I take any help
 You can access it via the url https://APP_NAME.herokuapp.com
 
 ## Android
-https://play.google.com/store/apps/details?id=com.ravenfeld.garmin.mypodcasts
+https://play.google.com/store/apps/details?id=com.ravenfeld.garmin.podcasts
 
 At the 1st launch a login page will ask you.
 
