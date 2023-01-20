@@ -6,6 +6,7 @@ import requests
 from datetime import datetime
 import xmltodict
 from dateutil.parser import parse
+from logging import warning
 import psycopg2
 import hashlib
 import config
@@ -31,8 +32,18 @@ CHECK_TIME = 86400  # 24 hours
 
 
 def connect_database():
-    DATABASE_URL = os.environ['DATABASE_URL']
-    return psycopg2.connect(DATABASE_URL, sslmode='require')
+    sslmode = os.environ.get('POSTGRES_SSLMODE', 'prefer')
+    DATABASE_URL = os.environ.get('DATABASE_URL', None)
+    if not DATABASE_URL:
+        # Reuse the values from the .devcontainer/docker-compose.yml for testing purposes.
+        host = os.environ.get('POSTGRES_HOST', 'db')
+        port = os.environ.get('POSTGRES_PORT', '5432')
+        user = os.environ.get('POSTGRES_USER', 'postgres')
+        password = os.environ.get('POSTGRES_PASSWORD', 'postgres')
+        db = os.environ.get('POSTGRES_DB', 'postgres')
+        DATABASE_URL = f"postgres://{user}:{password}@{host}:{port}/{db}"
+        warning(f"DATABASE_URL is missing.  Using {DATABASE_URL} for now.")
+    return psycopg2.connect(DATABASE_URL, sslmode=sslmode)
 
 
 def create_database():
