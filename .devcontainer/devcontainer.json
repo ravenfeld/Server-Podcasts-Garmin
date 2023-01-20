@@ -15,7 +15,8 @@
 		"ghcr.io/devcontainers/features/azure-cli:1": {},
 		"ghcr.io/devcontainers-contrib/features/heroku-cli:1": {},
 		"ghcr.io/stuartleeks/dev-container-features/azure-cli-persistence:0": {}
-    }
+    },
+	"initializeCommand": "touch ${localWorkspaceFolder}/.env"
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
