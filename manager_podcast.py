@@ -90,7 +90,7 @@ def create_account(login, password):
     cursor = dataBase.cursor()
     cursor.execute("""SELECT count(id)
                     FROM account""")
-    if(cursor.fetchone()[0] <= int(os.environ['NUMBER_MAX_USER'])):
+    if(cursor.fetchone()[0] <= int(os.environ.get('NUMBER_MAX_USER', 1))):
         cursor.execute("""SELECT id 
                         FROM account 
                         WHERE login = %s """, (login,))
