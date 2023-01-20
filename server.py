@@ -172,6 +172,10 @@ def get_list_episode_sync_watch(user_id):
 @app.route('/create_user', methods=['POST'])
 @accept('application/json')
 def create_user():
+    expected_admin_pass = os.environ['ADMIN_PASS']
+    admin_pass = request.form.get('admin_pass')
+    if admin_pass != expected_admin_pass:
+        return Response(json.dumps({'error': 'Unauthorized'}), status=403, mimetype='application/json')
     login = request.form.get('login')
     password = request.form.get('password')
     result = manager_podcast.create_account(login, password)

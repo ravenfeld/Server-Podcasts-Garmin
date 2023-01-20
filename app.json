@@ -26,6 +26,10 @@
     "PODCASTING_INDEX_SECRET": {
       "description": "API SECRET for podcast search. https://api.podcastindex.org/",
       "required": "false"
+    },
+    "ADMIN_PASS": {
+      "description": "A password to use for restriction access to admin functions (e.g. creating logins).",
+      "value": ""
     }
   }
 }
