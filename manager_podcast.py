@@ -112,6 +112,35 @@ def create_account(login, password):
         return Response(StatusCode.ERROR, "Maximum number of users reached")
 
 
+def delete_account(login):
+    dataBase = connect_database()
+    cursor = dataBase.cursor()
+    try:
+        cursor.execute("""DELETE 
+                        FROM account 
+                        WHERE login = %s """, (login,))
+        dataBase.commit()
+        dataBase.close()
+        return Response(StatusCode.OK, "")
+    except:
+        dataBase.close()
+        return Response(StatusCode.ERROR, "user does not exists")
+
+
+def list_accounts():
+    dataBase = connect_database()
+    cursor = dataBase.cursor()
+    cursor.execute("""SELECT
+                    login
+                    FROM account
+                    """)
+    logins = []
+    for login in cursor.fetchall():
+        logins.append(login)
+    dataBase.close()
+    return logins
+
+
 def user_id(token):
     user_id = None
     if token != None:

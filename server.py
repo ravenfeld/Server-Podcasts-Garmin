@@ -192,6 +192,45 @@ def web_ui_create_user():
     return render_template("create_user.html")
 
 
+@app.route('/delete_user', methods=['POST'])
+@accept('application/json')
+def delete_user():
+    expected_admin_pass = os.environ['ADMIN_PASS']
+    admin_pass = request.form.get('admin_pass')
+    if admin_pass != expected_admin_pass:
+        return Response(json.dumps({'error': 'Unauthorized'}), status=403, mimetype='application/json')
+    login = request.form.get('login')
+    result = manager_podcast.delete_account(login)
+    if result.code == manager_podcast.StatusCode.ERROR:
+        return Response(json.dumps({'error': result.data}), status=403, mimetype='application/json')
+    else:
+        session['session_token'] = None
+        return Response(json.dumps({'response': f"Deleted {login}"}), status=200, mimetype='application/json')
+
+
+@app.route('/delete_user', methods=['GET'])
+@accept('text/html')
+def web_ui_delete_user():
+    return render_template("delete_user.html")
+
+
+@app.route('/list_users', methods=['POST'])
+@accept('application/json')
+def list_users():
+    expected_admin_pass = os.environ['ADMIN_PASS']
+    admin_pass = request.form.get('admin_pass')
+    if admin_pass != expected_admin_pass:
+        return Response(json.dumps({'error': 'Unauthorized'}), status=403, mimetype='application/json')
+    logins = manager_podcast.list_accounts()
+    return Response(json.dumps({"users": logins}, indent=2), status=200, mimetype='application/json')
+
+
+@app.route('/list_users', methods=['GET'])
+@accept('text/html')
+def web_ui_list_users():
+    return render_template("list_users.html")
+
+
 @app.route('/login', methods=['GET'])
 @accept('text/html')
 def web_ui_login():

@@ -1,0 +1,59 @@
+<!doctype html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var form = document.forms.namedItem("form_login");
+            form.addEventListener('submit', function (ev) {
+                oData = new FormData(form);
+                var headers = new Headers();
+                headers.append('Accept', 'application/json');
+                request = new Request('/delete_user', {
+                    method: 'POST',
+                    headers: headers,
+                    body: oData
+                });
+                $(".error").hide()
+                fetch(request).then(response => {
+                    if (response.status === 200) {
+                        window.location.replace("/list_users");
+                    } else {
+                        response.json().then(function (data) {
+                            $(".error").text(data["error"]);
+                            $(".error").show();
+                        });
+                    }
+                });
+                ev.preventDefault();
+            }, false);
+        }
+    </script>
+    <title>MyPodcasts</title>
+    <link rel="icon" href="/static/favicon.ico"/>
+</head>
+<body>
+    <h1>
+        Delete user
+    </h1>
+    <p>
+        <label class="error" style="display: none">
+        </label>
+        <form enctype="multipart/form-data" method="post" id="form_login">
+            <div class="admin_pass">
+                <label for="admin_pass">
+                    <b>Admin Password</b>
+                </label>
+                <input type="password" placeholder="Enter Admin Password" name="admin_pass" required>
+            </div>
+            <div class="login">
+                <label for="login">
+                    <b>Login</b>
+                </label>
+                <input type="text" placeholder="Enter Username" name="login" required>
+            </div>
+            <div>
+                <button type="submit">Delete</button>
+            </div>
+        </form>
+    </p>
+</body>
