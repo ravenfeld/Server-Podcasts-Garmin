@@ -3,7 +3,6 @@
 from flask import request
 from flask import Flask
 from flask import render_template
-from flask import send_from_directory
 from flask import Response
 from flask import redirect
 from flask import session
@@ -42,13 +41,13 @@ def require_user_id(func):
     @wraps(func)
     def check_token(*args, **kwargs):
         user_id = None
-        if(request.headers.get('Authorization') != None):
+        if(request.headers.get('Authorization') is not None):
             user_id = manager_podcast.user_id(
                 request.headers.get('Authorization'))
         elif 'session_token' in session:
             user_id = manager_podcast.user_id(session['session_token'])
 
-        if user_id != None:
+        if user_id is not None:
             kwargs['user_id'] = user_id
             return func(*args, **kwargs)
         else:
