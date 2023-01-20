@@ -5,11 +5,17 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "containerEnv": {
+		// Support local proxy caches for rebuilding the container more quickly.
+		"http_proxy": "${localEnv:http_proxy}",
+		"https_proxy": "${localEnv:https_proxy}",
+		"no_proxy": "${localEnv:no_proxy}"
+	},
 	"features": {
 		"ghcr.io/devcontainers/features/azure-cli:1": {},
 		"ghcr.io/devcontainers-contrib/features/heroku-cli:1": {},
 		"ghcr.io/stuartleeks/dev-container-features/azure-cli-persistence:0": {}
-	}
+    }
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
