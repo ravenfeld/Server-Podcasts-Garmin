@@ -1,2 +1,4 @@
 .*.swp
 .env
+__pycache__
+*.pyc
