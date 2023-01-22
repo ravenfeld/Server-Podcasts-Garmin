@@ -46,7 +46,7 @@ jobs:
             !venv/
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/azure/personal'
     runs-on: ubuntu-latest
     needs: build
     environment:
