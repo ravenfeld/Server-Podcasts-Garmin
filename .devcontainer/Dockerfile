@@ -11,7 +11,3 @@ RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requ
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
-
-# Make the shebang path used in the original python scripts available in this container.
-RUN mkdir -p /Library/Frameworks/Python.framework/Versions/3.8/bin \
-    && ln -s /usr/local/bin/python3.8 /Library/Frameworks/Python.framework/Versions/3.8/bin/

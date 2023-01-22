@@ -1,4 +1,4 @@
-#! /Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8
+#!/usr/bin/env python3.8
 # -*- coding: utf-8 -*-
 from flask import request
 from flask import Flask
