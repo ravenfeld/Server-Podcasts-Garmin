@@ -135,11 +135,9 @@ az webapp create --location eastus --resource-group mypodcasts --plan app-servic
 #### Deploy the code in this repo to the Web App
 
 ```sh
-az webapp deployment list-publishing-credentials \
-    --name app-service-plan \
-    --resource-group mypodcasts \
-    --query "{Username:publishingUserName, Password:publishingPassword}" \
-    --output table
+git remote add azure $(az webapp deployment list-publishing-credentials -n mypodcasts -g mypodcasts --query scmUri -o tsv)/mypodcasts.git
+
+git push azure master
 ```
 
 #### Set some environment variables to configure the webapp
