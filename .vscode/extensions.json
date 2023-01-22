@@ -2,6 +2,10 @@
     "recommendations": [
         "editorconfig.editorconfig",
         "davidanson.vscode-markdownlint",
-        "ms-python.flake8"
+        "ms-python.flake8",
+        "ms-azuretools.vscode-azureappservice",
+        "ms-azuretools.vscode-cosmosdb",
+        "ms-azuretools.vscode-azureresourcegroups",
+        "ms-vscode-remote.remote-containers"
     ]
 }
