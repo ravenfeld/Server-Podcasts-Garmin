@@ -150,7 +150,7 @@ az webapp config appsettings set --name mypodcasts --resource-group mypodcasts -
     FLASK_DEBUG="0" \
     NUMBER_MAX_USER="1" \
     ADMIN_PASS="SomeSecretPassword" \
-    DATABASE_URL="postgres://mypodcasts:MyP0dcastsPassw0rd@mypgserver.postgres.databases.azure.com:5432/mypodcasts?sslmode=require" \
+    DATABASE_URL="postgres://mypodcasts:MyP0dcastsPassw0rd@mypgserver.postgres.database.azure.com:5432/mypodcasts?sslmode=require" \
     PODCASTING_INDEX_KEY="TODO/optional" \
     PODCASTING_INDEX_SECRET="TODO/optional"
 ```
@@ -168,11 +168,7 @@ az webapp deployment list-publishing-profiles --name mypodcasts --resource-group
 
 ## Create account
 
-### Heroku
-
-Open the following url:  https://APP_NAME.herokuapp.com/create_user
-
-### Azure
+Open the following url:  https://APP_NAME.herokuapp.com/create_user or https://YourWebAppName.azurewebsites.net
 
 Enter your login and password.
 
@@ -184,7 +180,7 @@ Enter your login and password.
 
 I'm not a web application developer so it's very simple. I take any help
 
-You can access it via the url https://APP_NAME.herokuapp.com.
+You can access it via the url https://APP_NAME.herokuapp.com or https://YourWebAppName.azurewebsites.net
 
 ### Android
 
@@ -208,7 +204,7 @@ https://apps.garmin.com/fr-FR/apps/5c22c9d7-4f38-4e03-8897-ad393b705dad
 You must configure the server before using the application by indicating the url of your application
 
 1. Open Garmin Connect IQ or Garmin Express. [Visit the documentation](https://support.garmin.com/fr-FR/?faq=SPo0TFvhQO04O36Y5TYRh5)
-2. Set url application https://APP_NAME.herokuapp.com/
+2. Set url application https://APP_NAME.herokuapp.com/ or https://YourWebAppName.azurewebsites.net/
 3. Save
 4. Select MyPodcasts as a music source on watch
 5. A login page will open for your mobile on the 1st use. **Please note that the BLE connection with your watch must work**
