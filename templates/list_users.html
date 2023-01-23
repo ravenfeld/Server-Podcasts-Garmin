@@ -8,7 +8,7 @@
                 oData = new FormData(form);
                 var headers = new Headers();
                 headers.append('Accept', 'application/json');
-                request = new Request('/create_user', {
+                request = new Request('/list_users', {
                     method: 'POST',
                     headers: headers,
                     body: oData
@@ -16,11 +16,16 @@
                 $(".error").hide()
                 fetch(request).then(response => {
                     if (response.status === 200) {
-                        window.location.replace("/login");
+                        response.json().then(function (data) {
+                            $(".users").text(data["users"]);
+                            $(".users").show();
+                            $(".error").hide();
+                        });
                     } else {
                         response.json().then(function (data) {
                             $(".error").text(data["error"]);
                             $(".error").show();
+                            $(".users").hide();
                         });
                     }
                 });
@@ -33,10 +38,12 @@
 </head>
 <body>
     <h1>
-        Create user
+        List users
     </h1>
     <p>
         <label class="error" style="display: none">
+        </label>
+        <label class="users" style="display: none">
         </label>
         <form enctype="multipart/form-data" method="post" id="form_login">
             <div class="admin_pass">
@@ -45,20 +52,8 @@
                 </label>
                 <input type="password" placeholder="Enter Admin Password" name="admin_pass" required>
             </div>
-            <div class="login">
-                <label for="login">
-                    <b>Login</b>
-                </label>
-                <input type="text" placeholder="Enter Username" name="login" required>
-            </div>
-            <div class="psw">
-                <label for="psw">
-                    <b>Password</b>
-                </label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-            </div>
             <div>
-                <button type="submit">Add</button>
+                <button type="submit">List Users</button>
             </div>
         </form>
     </p>

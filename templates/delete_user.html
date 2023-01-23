@@ -8,7 +8,7 @@
                 oData = new FormData(form);
                 var headers = new Headers();
                 headers.append('Accept', 'application/json');
-                request = new Request('/create_user', {
+                request = new Request('/delete_user', {
                     method: 'POST',
                     headers: headers,
                     body: oData
@@ -16,7 +16,7 @@
                 $(".error").hide()
                 fetch(request).then(response => {
                     if (response.status === 200) {
-                        window.location.replace("/login");
+                        window.location.replace("/list_users");
                     } else {
                         response.json().then(function (data) {
                             $(".error").text(data["error"]);
@@ -33,7 +33,7 @@
 </head>
 <body>
     <h1>
-        Create user
+        Delete user
     </h1>
     <p>
         <label class="error" style="display: none">
@@ -51,14 +51,8 @@
                 </label>
                 <input type="text" placeholder="Enter Username" name="login" required>
             </div>
-            <div class="psw">
-                <label for="psw">
-                    <b>Password</b>
-                </label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-            </div>
             <div>
-                <button type="submit">Add</button>
+                <button type="submit">Delete</button>
             </div>
         </form>
     </p>

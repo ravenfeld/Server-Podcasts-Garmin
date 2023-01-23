@@ -1,8 +1,4 @@
-/media
-/__pycache__
-error.log
-/db/podcast.db
-/test
-cover.png
-temp
-temp_conversion.mp3
+.*.swp
+.env
+__pycache__
+*.pyc
