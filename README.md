@@ -188,7 +188,7 @@ https://play.google.com/store/apps/details?id=com.ravenfeld.garmin.podcasts
 
 At the 1st launch a login page will ask you.
 
-1. Set url application https://APP_NAME.herokuapp.com/
+1. Set url application https://APP_NAME.herokuapp.com/ or https://YourWebAppName.azurewebsites.net/
 2. Set login
 3. Set password
 4. Enjoy
